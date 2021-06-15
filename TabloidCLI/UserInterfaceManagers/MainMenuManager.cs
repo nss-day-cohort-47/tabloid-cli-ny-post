@@ -11,10 +11,10 @@ namespace TabloidCLI.UserInterfaceManagers
         {
             Console.WriteLine("Main Menu");
 
-            Console.WriteLine(" 1) Journal Management");
-            Console.WriteLine(" 2) Blog Management");
+            Console.WriteLine(" 1) Journal Management"); //TODO: BUILD
+            Console.WriteLine(" 2) Blog Management"); //TODO: BUILD
             Console.WriteLine(" 3) Author Management");
-            Console.WriteLine(" 4) Post Management");
+            Console.WriteLine(" 4) Post Management"); //TODO: BUILD
             Console.WriteLine(" 5) Tag Management");
             Console.WriteLine(" 6) Search by Tag");
             Console.WriteLine(" 0) Exit");
