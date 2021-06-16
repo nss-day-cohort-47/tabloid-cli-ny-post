@@ -123,7 +123,11 @@ namespace TabloidCLI.UserInterfaceManagers
 
         private void Remove()
         {
-            throw new NotImplementedException();
+            Tag journalToDelete = Choose("Which journal would you like to remove?");
+            if (journalToDelete != null)
+            {
+                _tagRepository.Delete(journalToDelete.Id);
+            }
         }
     }
 }
