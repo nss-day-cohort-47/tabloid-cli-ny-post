@@ -28,13 +28,16 @@ namespace TabloidCLI.UserInterfaceManagers
             switch (choice)
             {
                 case "1":
+                    //TODO Search Blogs
                     return this;
                 case "2":
                     SearchAuthors();
                     return this;
                 case "3":
+                    //TODO Search Posts
                     return this;
                 case "4":
+                    //TODO Search Everything
                     return this;
                 case "0":
                     return _parentUI;
@@ -43,7 +46,7 @@ namespace TabloidCLI.UserInterfaceManagers
                     return this;
             }
         }
-
+        //TODO Create Tools for the cases above. Search authors has been created.
         private void SearchAuthors()
         {
             Console.Write("Tag> ");
