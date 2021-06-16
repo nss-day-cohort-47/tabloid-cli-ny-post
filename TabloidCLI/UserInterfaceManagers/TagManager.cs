@@ -123,10 +123,10 @@ namespace TabloidCLI.UserInterfaceManagers
 
         private void Remove()
         {
-            Tag journalToDelete = Choose("Which journal would you like to remove?");
-            if (journalToDelete != null)
+            Tag tagToDelete = Choose("Which tag would you like to remove?");
+            if (tagToDelete != null)
             {
-                _tagRepository.Delete(journalToDelete.Id);
+                _tagRepository.Delete(tagToDelete.Id);
             }
         }
     }
