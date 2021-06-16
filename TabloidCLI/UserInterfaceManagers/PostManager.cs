@@ -9,22 +9,25 @@ namespace TabloidCLI.UserInterfaceManagers
     {
         private readonly IUserInterfaceManager _parentUI;
         private PostRepository _postRepository;
+        private AuthorRepository _authorRepository;
         private string _connectionString;
 
         public PostManager(IUserInterfaceManager parentUI, string connectionString)
         {
             _parentUI = parentUI;
             _postRepository = new PostRepository(connectionString);
+            _authorRepository = new AuthorRepository(connectionString);
             _connectionString = connectionString;
         }
 
         public IUserInterfaceManager Execute()
         {
             Console.WriteLine("Post Menu");
-            Console.WriteLine(" 1) List Post");
-            Console.WriteLine(" 2) Add Post");
-            Console.WriteLine(" 3) Edit Post");
-            Console.WriteLine(" 4) Remove Post");
+            Console.WriteLine(" 1) List Posts");
+            Console.WriteLine(" 2) Post Details");
+            Console.WriteLine(" 3) Add Post");
+            Console.WriteLine(" 4) Edit Post");
+            Console.WriteLine(" 5) Remove Post");
             Console.WriteLine(" 0) Go Back");
 
             Console.Write("> ");
@@ -34,13 +37,24 @@ namespace TabloidCLI.UserInterfaceManagers
                 case "1":
                     List();
                     return this;
-                case "2":
+                //case "2":
+                //    Post post = Choose();
+                //    if (post == null)
+                //    {
+                //        return this;
+                //    }
+                //    else
+                //    {
+                //        Console.WriteLine("hello");
+                //        return new PostDetailManager(this, _connectionString, post.Id);
+                //    }
+                case "3":
                     Add();
                     return this;
-                case "3":
+                case "4":
                     Edit();
                     return this;
-                case "4":
+                case "5":
                     Remove();
                     return this;
                 case "0":
@@ -57,8 +71,7 @@ namespace TabloidCLI.UserInterfaceManagers
             foreach (Post post in posts)
             {
                 Console.WriteLine($"Title: {post.Title}");
-                Console.WriteLine($"Entry: {post.Content}");
-                Console.WriteLine($"Date: {post.CreateDateTime}");
+                Console.WriteLine($"Url: {post.Url}");
                 Console.WriteLine("   ");
             }
         }
@@ -94,6 +107,37 @@ namespace TabloidCLI.UserInterfaceManagers
             }
         }
 
+        private Author AuthorChoose(string prompt = null)
+        {
+            if (prompt == null)
+            {
+                prompt = "Please choose an Author:";
+            }
+
+            Console.WriteLine(prompt);
+
+            List<Author> authors = _authorRepository.GetAll();
+
+            for (int i = 0; i < authors.Count; i++)
+            {
+                Author author = authors[i];
+                Console.WriteLine($" {i + 1}) {author.FullName}");
+            }
+            Console.Write("> ");
+
+            string input = Console.ReadLine();
+            try
+            {
+                int choice = int.Parse(input);
+                return authors[choice - 1];
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Invalid Selection");
+                return null;
+            }
+        }
+
         private void Add()
         {
             Console.WriteLine("New Post");
@@ -102,10 +146,37 @@ namespace TabloidCLI.UserInterfaceManagers
             Console.Write("Title: ");
             post.Title = Console.ReadLine();
 
-            Console.Write("Entry: ");
-            post.Content = Console.ReadLine();
+            Console.Write("Url: ");
+            post.Url = Console.ReadLine();
 
-            post.CreateDateTime = DateTime.Now;
+            post.PublishDateTime = DateTime.Now;
+
+            //Author authorToAdd = AuthorChoose("Select an author:");
+            //if (authorToAdd == null)
+
+            post.Author = AuthorChoose();
+
+
+            //Console.Write("Select an author:");
+            //List<Author> authors = _authorRepository.GetAll();
+            //for (int i = 0; i < authors.Count; i++)
+            //{
+            //    Author author = authors[i];
+            //    Console.WriteLine($" {i + 1}) {author.FullName}");
+            //}
+            //Console.Write("> ");
+
+            //string input = Console.ReadLine();
+            //try
+            //{
+            //    int choice = int.Parse(input);
+            //    return authors[choice - 1];
+            //}
+            //catch (Exception ex)
+            //{
+            //    Console.WriteLine("Invalid Selection");
+            //    return null;
+            //}
 
             _postRepository.Insert(post);
         }
@@ -125,12 +196,20 @@ namespace TabloidCLI.UserInterfaceManagers
             {
                 postToEdit.Title = title;
             }
-            Console.Write("New entry (blank to leave unchanged: ");
-            string content = Console.ReadLine();
-            if (!string.IsNullOrWhiteSpace(content))
+            Console.Write("New Url (blank to leave unchanged: ");
+            string url = Console.ReadLine();
+            if (!string.IsNullOrWhiteSpace(url))
             {
-                postToEdit.Content = content;
+                postToEdit.Url = url;
             }
+            Console.Write("New publication date (blank to leave unchanged: ");
+            string date = Console.ReadLine();
+            if (!string.IsNullOrWhiteSpace(date))
+            {
+                DateTime PostDate = DateTime.Parse(date);
+                postToEdit.PublishDateTime = PostDate;
+            }
+
 
             _postRepository.Update(postToEdit);
         }
