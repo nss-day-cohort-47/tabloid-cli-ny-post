@@ -37,17 +37,16 @@ namespace TabloidCLI.UserInterfaceManagers
                 case "1":
                     List();
                     return this;
-                //case "2":
-                //    Post post = Choose();
-                //    if (post == null)
-                //    {
-                //        return this;
-                //    }
-                //    else
-                //    {
-                //        Console.WriteLine("hello");
-                //        return new PostDetailManager(this, _connectionString, post.Id);
-                //    }
+                case "2":
+                    Post post = Choose();
+                    if (post == null)
+                    {
+                        return this;
+                    }
+                    else
+                    {                        
+                        return new PostDetailManager(this, _connectionString, post.Id);
+                    }
                 case "3":
                     Add();
                     return this;
