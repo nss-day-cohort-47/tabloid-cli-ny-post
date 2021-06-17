@@ -88,8 +88,8 @@ namespace TabloidCLI.UserInterfaceManagers
 
             for (int i = 0; i < tags.Count; i++)
             {
-                Tag tag = tags[i];
-                Console.WriteLine($" {i + 1}) {tag.Name}");
+                Tag tagInList = tags[i];
+                Console.WriteLine($" {i + 1}) {tagInList.Name}");
             }
             Console.Write("> ");
 
@@ -104,7 +104,7 @@ namespace TabloidCLI.UserInterfaceManagers
             {
                 Console.WriteLine("Invalid Selection. Won't add any tags.");
             }
-        }
+}
 
         private void RemoveTag()
         {

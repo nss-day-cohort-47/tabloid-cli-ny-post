@@ -73,7 +73,7 @@ namespace TabloidCLI.Repositories
                 conn.Open();
                 using (SqlCommand cmd = conn.CreateCommand())
                 {
-                    cmd.CommandText = @"SELECT p.id,
+                    cmd.CommandText = @"SELECT p.Id As PostId,
                                                p.Title As PostTitle,
                                                p.URL AS PostUrl,
                                                p.PublishDateTime,
@@ -84,13 +84,13 @@ namespace TabloidCLI.Repositories
                                                a.Bio,
                                                b.Title AS BlogTitle,
                                                b.URL AS BlogUrl,
-                                               t.id as TagId,
+                                               t.Id as TagId,
                                                t.Name
                                           FROM Post p 
                                                LEFT JOIN Author a on p.AuthorId = a.Id
                                                LEFT JOIN Blog b on p.BlogId = b.Id
-                                               Left Join PostTag pt on p.id = pt.id
-                                               Left Join Tag t on pt.tagId = t.id
+                                               Left Join PostTag pt on p.Id = pt.PostId
+                                               Left Join Tag t on pt.TagId = t.Id
                                          WHERE p.Id = @id";
 
                     cmd.Parameters.AddWithValue("@id", id);
@@ -104,7 +104,7 @@ namespace TabloidCLI.Repositories
                         {
                             post = new Post()
                             {
-                                Id = reader.GetInt32(reader.GetOrdinal("AuthorId")),
+                                Id = reader.GetInt32(reader.GetOrdinal("PostId")),
                                 Title = reader.GetString(reader.GetOrdinal("PostTitle")),
                                 Url = reader.GetString(reader.GetOrdinal("PostUrl")),
                                 PublishDateTime = reader.GetDateTime(reader.GetOrdinal("PublishDateTime")),
