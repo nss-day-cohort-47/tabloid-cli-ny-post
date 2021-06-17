@@ -40,13 +40,13 @@ namespace TabloidCLI.UserInterfaceManagers
                     View();
                     return this;
                 case "2":
-                    ViewBlogPosts();
-                    return this;
-                case "3":
                     AddTag();
                     return this;
-                case "4":
+                case "3":
                     RemoveTag();
+                    return this;
+                case "4":
+                    NoteManagment();
                     return this;
                 case "0":
                     return _parentUI;
@@ -71,10 +71,10 @@ namespace TabloidCLI.UserInterfaceManagers
 
         private void ViewBlogPosts()
         {
-            List<Post> posts = _postRepository.GetByAuthor(_blogId);
+            List<Post> posts = _postRepository.GetByBlog(_blogId);
             foreach (Post post in posts)
             {
-                Console.WriteLine(post);
+                Console.WriteLine(post.Title);
             }
             Console.WriteLine();
         }
@@ -131,6 +131,21 @@ namespace TabloidCLI.UserInterfaceManagers
             {
                 Console.WriteLine("Invalid Selection. Won't remove any tags.");
             }
+        }
+
+        private void NoteManagment()
+        {
+            Blog blog = _blogRepository.Get(_blogId);
+            //try
+            //{
+            //    int choice = int.Parse(input);
+            //    Tag tag = tags[choice - 1];
+            //    _blogRepository.DeleteTag(blog.Id, tag.Id);
+            //}
+            //catch (Exception ex)
+            //{
+            //    Console.WriteLine("Invalid Selection. Won't add any tags.");
+            //}
         }
     }
 }
