@@ -208,7 +208,7 @@ namespace TabloidCLI.Repositories
                     cmd.Parameters.AddWithValue("@url", post.Url);
                     cmd.Parameters.AddWithValue("@publishDateTime", post.PublishDateTime);
                     cmd.Parameters.AddWithValue("@AuthorId", post.Author.Id);
-                    cmd.Parameters.AddWithValue("@BlogId", 1);
+                    cmd.Parameters.AddWithValue("@BlogId", post.Blog.Id);
 
                     cmd.ExecuteNonQuery();
                 }
