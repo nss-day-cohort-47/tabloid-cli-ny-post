@@ -30,7 +30,8 @@ namespace TabloidCLI.Repositories
                                                b.URL AS BlogUrl
                                           FROM Post p 
                                                LEFT JOIN Author a on p.AuthorId = a.Id
-                                               LEFT JOIN Blog b on p.BlogId = b.Id";                                      
+                                               LEFT JOIN Blog b on p.BlogId = b.Id
+                                            WHERE p.isDeleted = 0";                                      
 
                     List<Post> posts = new List<Post>();
 
@@ -311,7 +312,7 @@ namespace TabloidCLI.Repositories
                 conn.Open();
                 using (SqlCommand cmd = conn.CreateCommand())
                 {
-                    cmd.CommandText = @"DELETE FROM Post WHERE id = @id";
+                    cmd.CommandText = @"UPDATE Post SET isDeleted = 1 WHERE id = @id";
                     cmd.Parameters.AddWithValue("@id", id);
 
                     cmd.ExecuteNonQuery();

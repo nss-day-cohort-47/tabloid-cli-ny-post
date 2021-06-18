@@ -20,7 +20,8 @@ namespace TabloidCLI.Repositories
                     cmd.CommandText = @"SELECT id,
                                                Title,
                                                Url
-                                        FROM Blog";
+                                        FROM Blog
+                                        WHERE isDeleted = 0";
 
                     List<Blog> blogs = new List<Blog>();
 
@@ -142,7 +143,7 @@ namespace TabloidCLI.Repositories
                 conn.Open();
                 using (SqlCommand cmd = conn.CreateCommand())
                 {
-                    cmd.CommandText = @"DELETE FROM Blog WHERE id = @id";
+                    cmd.CommandText = @"UPDATE Blog SET isDeleted = 1 WHERE id = @id";
                     cmd.Parameters.AddWithValue("@id", id);
 
                     cmd.ExecuteNonQuery();
