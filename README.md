@@ -1,5 +1,7 @@
 # Tabloid CLI
 
+First backend group project where we had to take already exisiting code and apply our own to add onto and complete the project.
+
 ## The Story
 
 "Hey, let's start a company," you say.
@@ -29,3 +31,20 @@ For our POC, we will build a command line app in C# and save our data in SQL Ser
 The ERD for the POC is provided below
 
 https://dbdiagram.io/d/5fce53559a6c525a03ba2069
+
+## Demo
+
+![](/Animated%20GIF-downsized%20(1).gif)
+
+## Contributors
+
+- Jackson Goodman
+- Autumn Fotopoulos
+- Salma Crank
+- Traye Johnson
+
+## Tech used
+
+- C#
+- SQL
+- VS 2019
